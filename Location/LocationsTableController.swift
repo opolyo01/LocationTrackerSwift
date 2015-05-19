@@ -13,6 +13,12 @@ class LocationsTableViewController: UITableViewController {
     var locations = []
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
+    func reloadTable(notification: NSNotification){
+        //load data here
+        locations = Location.fetchLocations(managedObjectContext!)
+        self.tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
@@ -20,7 +26,7 @@ class LocationsTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTable:", name:"load", object: nil)
         locations = Location.fetchLocations(managedObjectContext!)
     }
     

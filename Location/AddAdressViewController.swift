@@ -24,6 +24,7 @@ class AddAdressViewController: UIViewController {
     @IBAction func addAddress(sender: AnyObject) {
         Location.addLocation(managedObjectContext!, address: addressLabelField.text, cityStateZip: cityStateZipLabelField.text)
         navigationController?.popViewControllerAnimated(true)
+        NSNotificationCenter.defaultCenter().postNotificationName("load", object: nil)
     }
     
     override func viewDidLoad() {
