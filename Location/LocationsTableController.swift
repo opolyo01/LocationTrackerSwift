@@ -21,27 +21,7 @@ class LocationsTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.fetchLocations()
-    }
-    
-    func fetchLocations(){
-        //2
-        let fetchRequest = NSFetchRequest(entityName:"Location")
-        
-        //3
-        var error: NSError?
-        
-        let fetchedResults =
-        managedObjectContext!.executeFetchRequest(fetchRequest,
-            error: &error) as? [NSManagedObject]
-        
-        if let results = fetchedResults {
-            locations = results
-            println("locations \(locations.count)")
-        } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
-        }
-
+        locations = Location.fetchLocations(managedObjectContext!)
     }
     
     func save() {
@@ -61,7 +41,7 @@ class LocationsTableViewController: UITableViewController {
             managedObjectContext?.deleteObject(locationToDelete as! NSManagedObject)
             
             // Refresh the table view to indicate that it's deleted
-            self.fetchLocations()
+            locations = Location.fetchLocations(managedObjectContext!)
             
             // Tell the table view to animate out that row
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
