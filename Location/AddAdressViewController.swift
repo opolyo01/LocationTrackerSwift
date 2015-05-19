@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class AddAdressViewController: UIViewController {
-    
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
     @IBOutlet weak var addressLabelField: UITextField!
     
@@ -22,30 +22,7 @@ class AddAdressViewController: UIViewController {
     
     
     @IBAction func addAddress(sender: AnyObject) {
-//        let appDelegate =
-//        UIApplication.sharedApplication().delegate as! AppDelegate
-//        
-//        let managedContext = appDelegate.managedObjectContext!
-//        
-//        //2
-//        let entity =  NSEntityDescription.entityForName("Person",
-//            inManagedObjectContext:
-//            managedContext)
-//        
-//        let person = NSManagedObject(entity: entity!,
-//            insertIntoManagedObjectContext:managedContext)
-//        
-//        //3
-//        person.setValue(name, forKey: "name")
-//        
-//        //4
-//        var error: NSError?
-//        if !managedContext.save(&error) {
-//            println("Could not save \(error), \(error?.userInfo)")
-//        }
-//        //5
-//        people.append(person)
-
+        Location.addLocation(managedObjectContext!, address: addressLabelField.text, cityStateZip: cityStateZipLabelField.text)
         navigationController?.popViewControllerAnimated(true)
     }
     
@@ -59,16 +36,4 @@ class AddAdressViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

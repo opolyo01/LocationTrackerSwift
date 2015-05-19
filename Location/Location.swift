@@ -10,15 +10,22 @@ import Foundation
 
 import CoreData
 
+@objc(Location)
 class Location: NSManagedObject {
     
     @NSManaged var address: String
     @NSManaged var cityStateZip: String
     
+    class func deleteLocation(moc: NSManagedObjectContext, locationToDelete:NSManagedObject){
+        moc.deleteObject(locationToDelete as NSManagedObject)
+        Location.save(moc)
+    }
+    
     class func addLocation(moc: NSManagedObjectContext, address: String, cityStateZip: String) -> Location {
         let newItem = NSEntityDescription.insertNewObjectForEntityForName("Location", inManagedObjectContext: moc) as! Location
         newItem.address = address
         newItem.cityStateZip = cityStateZip
+        Location.save(moc)
         
         return newItem
     }
@@ -40,6 +47,13 @@ class Location: NSManagedObject {
             return []
         }
 
+    }
+    
+    class func save(moc: NSManagedObjectContext) {
+        var error : NSError?
+        if(moc.save(&error) ) {
+            println("Error \(error?.localizedDescription)")
+        }
     }
     
 }

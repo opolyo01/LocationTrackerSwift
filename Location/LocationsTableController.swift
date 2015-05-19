@@ -24,29 +24,20 @@ class LocationsTableViewController: UITableViewController {
         locations = Location.fetchLocations(managedObjectContext!)
     }
     
-    func save() {
-        var error : NSError?
-        if(managedObjectContext!.save(&error) ) {
-            println("Error \(error?.localizedDescription)")
-        }
-    }
-    
     // called when a row deletion action is confirmed
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if(editingStyle == .Delete ) {
             // Find the LogItem object the user is trying to delete
-            let locationToDelete: AnyObject = locations[indexPath.row]
+            let locationToDelete: NSManagedObject = locations[indexPath.row] as! NSManagedObject
             
             // Delete it from the managedObjectContext
-            managedObjectContext?.deleteObject(locationToDelete as! NSManagedObject)
+            Location.deleteLocation(managedObjectContext!, locationToDelete: locationToDelete)
             
             // Refresh the table view to indicate that it's deleted
             locations = Location.fetchLocations(managedObjectContext!)
             
             // Tell the table view to animate out that row
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-            
-            save()
         }
     }
 //    // called when a row is moved
