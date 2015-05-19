@@ -8,10 +8,15 @@
 
 import UIKit
 import CoreData
+import CoreLocation
+import MapKit
+import AddressBook
 
-class LocationsTableViewController: UITableViewController {
+class LocationsTableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
     var locations = []
+    var coords: CLLocationCoordinate2D?
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    
     
     func reloadTable(notification: NSNotification){
         //load data here
@@ -46,16 +51,6 @@ class LocationsTableViewController: UITableViewController {
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
     }
-//    // called when a row is moved
-//    override func tableView(tableView: UITableView,
-//        moveRowAtIndexPath sourceIndexPath: NSIndexPath,
-//        toIndexPath destinationIndexPath: NSIndexPath) {
-//            // remove the dragged row's model
-//            let val = self.locations.removeObjectAtIndex(sourceIndexPath.row)
-//            
-//            // insert it into the new position
-//            self.locations.insertObject(val, atIndex: destinationIndexPath.row)
-//    }
 
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -68,11 +63,55 @@ class LocationsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath) as! UITableViewCell
-        
         let location: AnyObject = locations[indexPath.row]
         cell.textLabel!.text = location.valueForKey("address") as? String
+        println(location.valueForKey("address") as? String)
         
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // load the selected model
+        let location: AnyObject = self.locations[indexPath.row]
+        
+        let address = location.valueForKey("address") as! String
+        let cityStateZip = location.valueForKey("cityStateZip") as! String
+        
+        let geoCoder = CLGeocoder()
+        
+        let addressString = "\(address) \(cityStateZip)"
+        
+        geoCoder.geocodeAddressString(addressString, completionHandler:
+            {(placemarks: [AnyObject]!, error: NSError!) in
+                
+                if error != nil {
+                    println("Geocode failed with error: \(error.localizedDescription)")
+                } else if placemarks.count > 0 {
+                    let placemark = placemarks[0] as! CLPlacemark
+                    let location = placemark.location
+                    self.coords = location.coordinate
+                    
+                    self.showMap(address, cityStateZip: cityStateZip)
+                }
+        })
+    }
+    
+    func showMap(address:String, cityStateZip:String){
+        let addressDict =
+        [kABPersonAddressStreetKey as NSString: address,
+            kABPersonAddressCityKey: cityStateZip,
+            kABPersonAddressStateKey: "",
+            kABPersonAddressZIPKey: ""]
+        
+        let place = MKPlacemark(coordinate: coords!,
+            addressDictionary: addressDict)
+        
+        let mapItem = MKMapItem(placemark: place)
+        
+        let options = [MKLaunchOptionsDirectionsModeKey:
+        MKLaunchOptionsDirectionsModeDriving]
+        
+        mapItem.openInMapsWithLaunchOptions(options)
     }
     
 }
