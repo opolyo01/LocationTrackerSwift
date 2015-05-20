@@ -14,18 +14,29 @@ import CoreData
 class Location: NSManagedObject {
     
     @NSManaged var address: String
-    @NSManaged var cityStateZip: String
+    @NSManaged var city: String
+    @NSManaged var state: String
+    @NSManaged var zipCode: String
+    @NSManaged var lat: Double
+    @NSManaged var lng: Double
     
     class func deleteLocation(moc: NSManagedObjectContext, locationToDelete:NSManagedObject){
         moc.deleteObject(locationToDelete as NSManagedObject)
         Location.save(moc)
     }
     
-    class func addLocation(moc: NSManagedObjectContext, address: String, cityStateZip: String) -> Location {
+    class func addLocation(moc: NSManagedObjectContext, address: String, city: String,
+        state: String, zip: String, lat: Double, lng: Double) -> Location {
         let newItem = NSEntityDescription.insertNewObjectForEntityForName("Location", inManagedObjectContext: moc) as! Location
         newItem.address = address
-        newItem.cityStateZip = cityStateZip
+        newItem.city = city
+        newItem.state = state
+        newItem.zipCode = zip
+        newItem.lat = lat
+        newItem.lng = lng
         Location.save(moc)
+            
+        println("Location \(lat) \(lng)")
         
         return newItem
     }

@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import CoreLocation
+import AddressBook
 
 class AddAdressViewController: UIViewController, CLLocationManagerDelegate {
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
@@ -16,7 +17,10 @@ class AddAdressViewController: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var addressLabelField: UITextField!
     
-    @IBOutlet weak var cityStateZipLabelField: UITextField!
+    @IBOutlet weak var stateLabelField: UITextField!
+    
+    @IBOutlet weak var cityLabelField: UITextField!
+    @IBOutlet weak var zipLabelField: UITextField!
     
     @IBAction func setCurrentLocation(sender: AnyObject) {
         locationManager.delegate = self
@@ -27,9 +31,31 @@ class AddAdressViewController: UIViewController, CLLocationManagerDelegate {
     
     
     @IBAction func addAddress(sender: AnyObject) {
-        Location.addLocation(managedObjectContext!, address: addressLabelField.text, cityStateZip: cityStateZipLabelField.text)
-        navigationController?.popViewControllerAnimated(true)
-        NSNotificationCenter.defaultCenter().postNotificationName("load", object: nil)
+        let address = addressLabelField.text
+        let city = cityLabelField.text
+        let state = stateLabelField.text
+        let zipCode = zipLabelField.text
+        let addressString = "\(address) \(city) \(state) \(zipCode)"
+        let geoCoder = CLGeocoder()
+        
+        geoCoder.geocodeAddressString(addressString, completionHandler:
+            {(placemarks: [AnyObject]!, error: NSError!) in
+                
+                if error != nil {
+                    println("Geocode failed with error: \(error.localizedDescription)")
+                } else if placemarks.count > 0 {
+                    let placemark = placemarks[0] as! CLPlacemark
+                    let location = placemark.location
+                    let coords = location.coordinate
+                    let lat = coords.latitude
+                    let lng = coords.longitude
+                    
+                    Location.addLocation(self.managedObjectContext!, address: address, city: city,
+                        state: state, zip: zipCode, lat: lat, lng: lng)
+                    self.navigationController?.popViewControllerAnimated(true)
+                    NSNotificationCenter.defaultCenter().postNotificationName("load", object: nil)
+                }
+        })
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
@@ -61,7 +87,9 @@ class AddAdressViewController: UIViewController, CLLocationManagerDelegate {
             let street = (containsPlacemark.thoroughfare != nil) ? containsPlacemark.thoroughfare : ""
             
             addressLabelField.text = streetNumber + " " + street
-            cityStateZipLabelField.text = city + " " + state + " " + postalCode
+            cityLabelField.text = city
+            stateLabelField.text = state
+            zipLabelField.text = postalCode
         }
         
     }
@@ -72,7 +100,6 @@ class AddAdressViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
 

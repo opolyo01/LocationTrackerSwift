@@ -12,10 +12,13 @@ import CoreLocation
 import MapKit
 import AddressBook
 
-class LocationsTableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
+class LocationsTableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
+    
     var locations = []
+    var currentLocation:CLLocation = CLLocation(latitude: 0, longitude: 0)
     var coords: CLLocationCoordinate2D?
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    let locationManager = CLLocationManager()
     
     
     func reloadTable(notification: NSNotification){
@@ -27,12 +30,21 @@ class LocationsTableViewController: UITableViewController, UITableViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTable:", name:"load", object: nil)
         locations = Location.fetchLocations(managedObjectContext!)
+    }
+    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        currentLocation = manager.location
+        self.tableView.reloadData()
     }
     
     // called when a row deletion action is confirmed
@@ -64,10 +76,24 @@ class LocationsTableViewController: UITableViewController, UITableViewDelegate, 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath) as! UITableViewCell
         let location: AnyObject = locations[indexPath.row]
-        cell.textLabel!.text = location.valueForKey("address") as? String
-        println(location.valueForKey("address") as? String)
+        let lat = location.valueForKey("lat") as? Double
+        let lng = location.valueForKey("lng") as? Double
+        let clLocation = CLLocation(latitude: lat!, longitude: lng!)
+        let metersInMile = 1609.344
+        var address = location.valueForKey("address") as? String
+        var distance:Double = clLocation.distanceFromLocation(currentLocation)
+        distance = distance/metersInMile
+        distance = self.roundToPlaces(distance, places: 2)
+        
+        cell.textLabel!.text = address! + " " + distance.description + "mi"
+        println("Distance \(distance)")
         
         return cell
+    }
+    
+    func roundToPlaces(value:Double, places:Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return round(value * divisor) / divisor
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -75,33 +101,23 @@ class LocationsTableViewController: UITableViewController, UITableViewDelegate, 
         let location: AnyObject = self.locations[indexPath.row]
         
         let address = location.valueForKey("address") as! String
-        let cityStateZip = location.valueForKey("cityStateZip") as! String
+        let city = location.valueForKey("city") as! String
+        let state = location.valueForKey("state") as! String
+        let zipCode = location.valueForKey("zipCode") as! String
+        let lat = location.valueForKey("lat") as? Double
+        let lng = location.valueForKey("lng") as? Double
+        let clLocation = CLLocation(latitude: lat!, longitude: lng!)
+        coords = clLocation.coordinate
         
-        let geoCoder = CLGeocoder()
-        
-        let addressString = "\(address) \(cityStateZip)"
-        
-        geoCoder.geocodeAddressString(addressString, completionHandler:
-            {(placemarks: [AnyObject]!, error: NSError!) in
-                
-                if error != nil {
-                    println("Geocode failed with error: \(error.localizedDescription)")
-                } else if placemarks.count > 0 {
-                    let placemark = placemarks[0] as! CLPlacemark
-                    let location = placemark.location
-                    self.coords = location.coordinate
-                    
-                    self.showMap(address, cityStateZip: cityStateZip)
-                }
-        })
+        self.showMap(address, city: city, state: state, zipCode: zipCode)
     }
     
-    func showMap(address:String, cityStateZip:String){
+    func showMap(address:String, city:String, state:String, zipCode:String){
         let addressDict =
         [kABPersonAddressStreetKey as NSString: address,
-            kABPersonAddressCityKey: cityStateZip,
-            kABPersonAddressStateKey: "",
-            kABPersonAddressZIPKey: ""]
+            kABPersonAddressCityKey: city,
+            kABPersonAddressStateKey: state,
+            kABPersonAddressZIPKey: zipCode]
         
         let place = MKPlacemark(coordinate: coords!,
             addressDictionary: addressDict)

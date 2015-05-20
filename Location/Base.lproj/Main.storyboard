@@ -56,20 +56,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="address" minimumFontSize="17" id="sVp-HJ-Ir4">
-                                <rect key="frame" x="16" y="120" width="288" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="address (street number street name)" minimumFontSize="17" id="sVp-HJ-Ir4">
+                                <rect key="frame" x="16" y="78" width="288" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="city state zip" minimumFontSize="17" id="LOS-GH-jOP">
-                                <rect key="frame" x="16" y="164" width="288" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="city" minimumFontSize="17" id="LOS-GH-jOP">
+                                <rect key="frame" x="16" y="123" width="288" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="state" minimumFontSize="17" id="6YH-8N-uaK">
+                                <rect key="frame" x="16" y="171" width="288" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Zip Code" minimumFontSize="17" id="yKg-Up-2IJ">
+                                <rect key="frame" x="16" y="223" width="288" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ru1-Yc-Ykb">
-                                <rect key="frame" x="51" y="246" width="218" height="30"/>
+                                <rect key="frame" x="29" y="261" width="218" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Add Address">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -79,7 +91,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.25115372790000001" green="0.79430680249999996" blue="0.62685719070000001" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="Kng-yz-iYE">
                         <barButtonItem key="rightBarButtonItem" title="Set Current Location" id="CEQ-XO-WjI">
@@ -90,12 +102,14 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addressLabelField" destination="sVp-HJ-Ir4" id="9YR-3J-PBW"/>
-                        <outlet property="cityStateZipLabelField" destination="LOS-GH-jOP" id="L8R-FI-r48"/>
+                        <outlet property="cityLabelField" destination="LOS-GH-jOP" id="nP9-Cg-W2C"/>
+                        <outlet property="stateLabelField" destination="6YH-8N-uaK" id="SHN-kc-3HZ"/>
+                        <outlet property="zipLabelField" destination="yKg-Up-2IJ" id="Q63-3o-z3h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="63m-No-Iyt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="603" y="-2168"/>
+            <point key="canvasLocation" x="616" y="-2154"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="k0S-TP-IEt">
