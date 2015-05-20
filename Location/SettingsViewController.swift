@@ -39,7 +39,8 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
             let state = location.valueForKey("state") as! String
             let zipCode = location.valueForKey("zipCode") as! String
             let addressLine = address + " " + city + " " + state + " " + zipCode
-            messageBody  = messageBody + addressLine + "<br/>"
+            let link = "<a href='http://maps.apple.com/?daddr=\(addressLine)&saddr=Current%%20Location'>\(addressLine)</a>"
+            messageBody  = messageBody + link + "<br/><br/>"
         }
         mc.setMessageBody(messageBody, isHTML: true)
         self.presentViewController(mc, animated: true, completion: nil)
