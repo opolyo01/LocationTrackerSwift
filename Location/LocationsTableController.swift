@@ -13,7 +13,7 @@ import MapKit
 import AddressBook
 
 class LocationsTableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
-    
+    var settings = Settings()
     var locations = []
     var currentLocation:CLLocation = CLLocation(latitude: 0, longitude: 0)
     var coords: CLLocationCoordinate2D?
@@ -34,12 +34,23 @@ class LocationsTableViewController: UITableViewController, UITableViewDelegate, 
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        settings = (tabBarController as! LocationTabBarControllerViewController).settings
+        println(settings.updatesOn)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTable:", name:"load", object: nil)
         locations = Location.fetchLocations(managedObjectContext!)
+        println(settings.updatesOn)
+        if(settings.updatesOn){
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        locationManager.stopUpdatingLocation()
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
@@ -95,7 +106,7 @@ class LocationsTableViewController: UITableViewController, UITableViewDelegate, 
         if let distanceLabel = cell.viewWithTag(101) as? UILabel {
             distanceLabel.text = distance.description + "mi"
         }
-        println("Distance \(distance)")
+        //println("Distance \(distance)")
         
         return cell
     }

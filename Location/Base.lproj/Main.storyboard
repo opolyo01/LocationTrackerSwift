@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="43D-go-l3k">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="6m1-RL-zhn">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -59,7 +59,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l5K-7i-EM3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="175" y="-2168"/>
+            <point key="canvasLocation" x="707" y="-2168"/>
         </scene>
         <!--Add Adress View Controller-->
         <scene sceneID="KqY-ob-AfP">
@@ -151,12 +151,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="63m-No-Iyt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="616" y="-2154"/>
+            <point key="canvasLocation" x="1148" y="-2154"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="k0S-TP-IEt">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="43D-go-l3k" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="favorites" id="Wsu-8l-D4k"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bfK-nx-HGr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -168,6 +169,70 @@
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JzP-ah-pMs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="238" y="-2188"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="rYg-Hl-v3p">
+            <objects>
+                <viewController id="6hz-sQ-Eza" customClass="SettingsViewController" customModule="Location" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="B84-xI-9sg"/>
+                        <viewControllerLayoutGuide type="bottom" id="h64-RE-qgf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mIl-WA-oSi">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Kv-yO-A5Z">
+                                <rect key="frame" x="199" y="72" width="51" height="31"/>
+                                <connections>
+                                    <action selector="updateLocationChanged:" destination="6hz-sQ-Eza" eventType="valueChanged" id="MQ3-9p-lZt"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location Updates" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wpm-ap-xBi">
+                                <rect key="frame" x="16" y="77" width="137" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tma-Kg-c8r">
+                                <rect key="frame" x="16" y="148" width="206" height="34"/>
+                                <state key="normal" title="Share Your Favorite Locations">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="shareLocations:" destination="6hz-sQ-Eza" eventType="touchUpInside" id="rcV-gN-Urq"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Settings" id="bO7-2k-TV9"/>
+                    <connections>
+                        <outlet property="locationUpdates" destination="4Kv-yO-A5Z" id="LEX-Cz-WxD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7kV-7A-ooZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-294" y="-1420"/>
+        </scene>
+        <!--Location Tab Bar Controller View Controller-->
+        <scene sceneID="Sns-ow-Oc8">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="6m1-RL-zhn" customClass="LocationTabBarControllerViewController" customModule="Location" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="MjQ-P9-BmS">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="43D-go-l3k" kind="relationship" relationship="viewControllers" id="CLX-Jn-LSR"/>
+                        <segue destination="6hz-sQ-Eza" kind="relationship" relationship="viewControllers" id="6em-jg-lqD"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="On8-Yd-Mdr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-294" y="-2188"/>
         </scene>

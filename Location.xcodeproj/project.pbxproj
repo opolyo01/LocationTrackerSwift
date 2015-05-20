@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		34DDB2D21B0AEBFF0001FE45 /* AddAdressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DDB2D11B0AEBFF0001FE45 /* AddAdressViewController.swift */; };
 		34DDB2D61B0AF38E0001FE45 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DDB2D51B0AF38E0001FE45 /* Location.swift */; };
+		34DDB2D81B0D005A0001FE45 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DDB2D71B0D005A0001FE45 /* Settings.swift */; };
+		34DDB2DA1B0D010B0001FE45 /* LocationTabBarControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DDB2D91B0D010B0001FE45 /* LocationTabBarControllerViewController.swift */; };
+		34DDB2DC1B0D04E70001FE45 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DDB2DB1B0D04E70001FE45 /* SettingsViewController.swift */; };
 		34E9F5E81B06B48B006A2A29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E9F5E71B06B48B006A2A29 /* AppDelegate.swift */; };
 		34E9F5EB1B06B48B006A2A29 /* Location.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 34E9F5E91B06B48B006A2A29 /* Location.xcdatamodeld */; };
 		34E9F5ED1B06B48B006A2A29 /* LocationsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E9F5EC1B06B48B006A2A29 /* LocationsTableController.swift */; };
@@ -31,6 +34,9 @@
 /* Begin PBXFileReference section */
 		34DDB2D11B0AEBFF0001FE45 /* AddAdressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAdressViewController.swift; sourceTree = "<group>"; };
 		34DDB2D51B0AF38E0001FE45 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		34DDB2D71B0D005A0001FE45 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		34DDB2D91B0D010B0001FE45 /* LocationTabBarControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTabBarControllerViewController.swift; sourceTree = "<group>"; };
+		34DDB2DB1B0D04E70001FE45 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		34E9F5E21B06B48B006A2A29 /* Location.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Location.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34E9F5E61B06B48B006A2A29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		34E9F5E71B06B48B006A2A29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../Location/AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				34DDB2D51B0AF38E0001FE45 /* Location.swift */,
+				34DDB2D71B0D005A0001FE45 /* Settings.swift */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -73,8 +80,10 @@
 		34DDB2D41B0AF2C90001FE45 /* viewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				34DDB2D91B0D010B0001FE45 /* LocationTabBarControllerViewController.swift */,
 				34DDB2D11B0AEBFF0001FE45 /* AddAdressViewController.swift */,
 				34E9F5EC1B06B48B006A2A29 /* LocationsTableController.swift */,
+				34DDB2DB1B0D04E70001FE45 /* SettingsViewController.swift */,
 			);
 			name = viewControllers;
 			sourceTree = "<group>";
@@ -237,11 +246,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34DDB2D81B0D005A0001FE45 /* Settings.swift in Sources */,
 				34E9F5ED1B06B48B006A2A29 /* LocationsTableController.swift in Sources */,
 				34E9F5EB1B06B48B006A2A29 /* Location.xcdatamodeld in Sources */,
 				34DDB2D61B0AF38E0001FE45 /* Location.swift in Sources */,
+				34DDB2DA1B0D010B0001FE45 /* LocationTabBarControllerViewController.swift in Sources */,
 				34DDB2D21B0AEBFF0001FE45 /* AddAdressViewController.swift in Sources */,
 				34E9F5E81B06B48B006A2A29 /* AppDelegate.swift in Sources */,
+				34DDB2DC1B0D04E70001FE45 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
