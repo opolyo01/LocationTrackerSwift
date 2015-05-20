@@ -87,7 +87,14 @@ class LocationsTableViewController: UITableViewController, UITableViewDelegate, 
         distance = distance/metersInMile
         distance = self.roundToPlaces(distance, places: 2)
         
-        cell.textLabel!.text = address! + " " + distance.description + "mi"
+        //cell.textLabel!.text = address! + " " + distance.description + "mi"
+        
+        if let addressLabel = cell.viewWithTag(100) as? UILabel { //3
+            addressLabel.text = address
+        }
+        if let distanceLabel = cell.viewWithTag(101) as? UILabel {
+            distanceLabel.text = distance.description + "mi"
+        }
         println("Distance \(distance)")
         
         return cell
