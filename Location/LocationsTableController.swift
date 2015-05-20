@@ -44,7 +44,9 @@ class LocationsTableViewController: UITableViewController, UITableViewDelegate, 
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         currentLocation = manager.location
-        self.tableView.reloadData()
+        if(!self.tableView.editing){
+            self.tableView.reloadData()
+        }
     }
     
     // called when a row deletion action is confirmed
