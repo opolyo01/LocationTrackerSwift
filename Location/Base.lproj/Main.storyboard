@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="43D-go-l3k">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="43D-go-l3k">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Locations Table View Controller-->
@@ -52,46 +53,62 @@
         <scene sceneID="KqY-ob-AfP">
             <objects>
                 <viewController id="3Qu-ZP-Whl" customClass="AddAdressViewController" customModule="Location" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qsz-tT-mga"/>
+                        <viewControllerLayoutGuide type="bottom" id="hWG-N0-IRR"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="uFC-nC-NgS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="address (street number street name)" minimumFontSize="17" id="sVp-HJ-Ir4">
-                                <rect key="frame" x="16" y="78" width="288" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="address (street number street name)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sVp-HJ-Ir4">
+                                <rect key="frame" x="16" y="94" width="288" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="city" minimumFontSize="17" id="LOS-GH-jOP">
-                                <rect key="frame" x="16" y="123" width="288" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="city" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LOS-GH-jOP">
+                                <rect key="frame" x="16" y="154" width="288" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="state" minimumFontSize="17" id="6YH-8N-uaK">
-                                <rect key="frame" x="16" y="171" width="288" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="state" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6YH-8N-uaK">
+                                <rect key="frame" x="16" y="214" width="288" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Zip Code" minimumFontSize="17" id="yKg-Up-2IJ">
-                                <rect key="frame" x="16" y="223" width="288" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Zip Code" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yKg-Up-2IJ">
+                                <rect key="frame" x="16" y="274" width="288" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ru1-Yc-Ykb">
-                                <rect key="frame" x="29" y="261" width="218" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ru1-Yc-Ykb">
+                                <rect key="frame" x="51" y="381" width="218" height="30"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
                                 <state key="normal" title="Add Address">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.25115372790000001" green="0.79430680249999996" blue="0.62685719070000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="addAddress:" destination="3Qu-ZP-Whl" eventType="touchUpInside" id="XUQ-OD-HV5"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.25115372790000001" green="0.79430680249999996" blue="0.62685719070000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="1" green="0.34110504479999998" blue="0.69602558270000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="LOS-GH-jOP" firstAttribute="leading" secondItem="uFC-nC-NgS" secondAttribute="leadingMargin" id="3aX-Pa-5EK"/>
+                            <constraint firstItem="yKg-Up-2IJ" firstAttribute="leading" secondItem="uFC-nC-NgS" secondAttribute="leadingMargin" id="3no-Mv-wV4"/>
+                            <constraint firstItem="sVp-HJ-Ir4" firstAttribute="trailing" secondItem="uFC-nC-NgS" secondAttribute="trailingMargin" id="AHd-R8-bZP"/>
+                            <constraint firstItem="LOS-GH-jOP" firstAttribute="top" secondItem="sVp-HJ-Ir4" secondAttribute="bottom" constant="30" id="CDb-xO-5fb"/>
+                            <constraint firstItem="6YH-8N-uaK" firstAttribute="top" secondItem="LOS-GH-jOP" secondAttribute="bottom" constant="30" id="Ihg-Ee-oeH"/>
+                            <constraint firstItem="yKg-Up-2IJ" firstAttribute="trailing" secondItem="uFC-nC-NgS" secondAttribute="trailingMargin" id="PV5-bO-ROG"/>
+                            <constraint firstItem="yKg-Up-2IJ" firstAttribute="centerX" secondItem="ru1-Yc-Ykb" secondAttribute="centerX" id="Ph6-wB-ZBJ"/>
+                            <constraint firstItem="LOS-GH-jOP" firstAttribute="trailing" secondItem="uFC-nC-NgS" secondAttribute="trailingMargin" id="Xxz-dJ-LCt"/>
+                            <constraint firstItem="sVp-HJ-Ir4" firstAttribute="top" secondItem="qsz-tT-mga" secondAttribute="bottom" constant="30" id="enU-SN-NJ0"/>
+                            <constraint firstItem="sVp-HJ-Ir4" firstAttribute="leading" secondItem="uFC-nC-NgS" secondAttribute="leadingMargin" id="f4N-4r-NoC"/>
+                            <constraint firstItem="ru1-Yc-Ykb" firstAttribute="top" secondItem="yKg-Up-2IJ" secondAttribute="bottom" constant="30" id="ixz-pD-TFg"/>
+                            <constraint firstItem="6YH-8N-uaK" firstAttribute="trailing" secondItem="uFC-nC-NgS" secondAttribute="trailingMargin" id="mos-JR-enM"/>
+                            <constraint firstItem="yKg-Up-2IJ" firstAttribute="top" secondItem="6YH-8N-uaK" secondAttribute="bottom" constant="30" id="pFL-zd-J7Q"/>
+                            <constraint firstItem="6YH-8N-uaK" firstAttribute="leading" secondItem="uFC-nC-NgS" secondAttribute="leadingMargin" id="wIT-gW-g0u"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Kng-yz-iYE">
                         <barButtonItem key="rightBarButtonItem" title="Set Current Location" id="CEQ-XO-WjI">

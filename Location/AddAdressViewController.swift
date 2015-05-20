@@ -11,14 +11,12 @@ import CoreData
 import CoreLocation
 import AddressBook
 
-class AddAdressViewController: UIViewController, CLLocationManagerDelegate {
+class AddAdressViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate {
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     let locationManager = CLLocationManager()
 
     @IBOutlet weak var addressLabelField: UITextField!
-    
     @IBOutlet weak var stateLabelField: UITextField!
-    
     @IBOutlet weak var cityLabelField: UITextField!
     @IBOutlet weak var zipLabelField: UITextField!
     
@@ -98,8 +96,17 @@ class AddAdressViewController: UIViewController, CLLocationManagerDelegate {
         println("Error while updating location " + error.localizedDescription)
     }
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true;
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        addressLabelField.delegate = self
+        cityLabelField.delegate = self
+        stateLabelField.delegate=self
+        zipLabelField.delegate = self
         // Do any additional setup after loading the view.
     }
 
