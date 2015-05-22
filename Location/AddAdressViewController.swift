@@ -111,11 +111,10 @@ class AddAdressViewController: UIViewController, CLLocationManagerDelegate, UITe
         var needToMove: CGFloat = 0
         
         var frame : CGRect = self.view.frame
-        if (textField.frame.origin.y + textField.frame.size.height + /*self.navigationController.navigationBar.frame.size.height + */
-            UIApplication.sharedApplication().statusBarFrame.size.height > (myScreenRect.size.height - keyboardHeight)) {
-                needToMove = (textField.frame.origin.y + textField.frame.size.height + /*self.navigationController.navigationBar.frame.size.height +*/ UIApplication.sharedApplication().statusBarFrame.size.height) - (myScreenRect.size.height - keyboardHeight);
-        }
         
+        if (textField.tag == 3) {
+            needToMove = 100
+        }
         frame.origin.y = -needToMove
         self.view.frame = frame
         UIView.commitAnimations()
@@ -142,6 +141,15 @@ class AddAdressViewController: UIViewController, CLLocationManagerDelegate, UITe
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         // Do any additional setup after loading the view.
+    }
+    
+    
+    override func supportedInterfaceOrientations() -> Int {
+        return Int(UIInterfaceOrientationMask.Portrait.rawValue)
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
     }
 
     override func didReceiveMemoryWarning() {

@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>0098DB30-A82C-48BE-BB1B-FF76A8F3EDD9</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>Location</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>D0C1BB9F11C8A790605BEC70158D6F506D9CBA39</key>
 		<string>github.com:opolyo01/LocationTrackerSwift.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Location.xcodeproj/project.xcworkspace</string>
+	<string>Location.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>D0C1BB9F11C8A790605BEC70158D6F506D9CBA39</key>
