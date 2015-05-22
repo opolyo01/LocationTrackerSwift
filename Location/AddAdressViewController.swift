@@ -21,10 +21,10 @@ class AddAdressViewController: UIViewController, CLLocationManagerDelegate, UITe
     @IBOutlet weak var zipLabelField: UITextField!
     
     @IBAction func setCurrentLocation(sender: AnyObject) {
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
+        addressLabelField.text = ""
+        cityLabelField.text = ""
+        stateLabelField.text = ""
+        zipLabelField.text = ""
     }
     
     
@@ -101,12 +101,46 @@ class AddAdressViewController: UIViewController, CLLocationManagerDelegate, UITe
         return true;
     }
     
+    func textFieldDidBeginEditing(textField: UITextField) { // became first responder
+        //move textfields up
+        let myScreenRect: CGRect = UIScreen.mainScreen().bounds
+        let keyboardHeight : CGFloat = 200
+        
+        UIView.beginAnimations( "animateView", context: nil)
+        var movementDuration:NSTimeInterval = 0.35
+        var needToMove: CGFloat = 0
+        
+        var frame : CGRect = self.view.frame
+        if (textField.frame.origin.y + textField.frame.size.height + /*self.navigationController.navigationBar.frame.size.height + */
+            UIApplication.sharedApplication().statusBarFrame.size.height > (myScreenRect.size.height - keyboardHeight)) {
+                needToMove = (textField.frame.origin.y + textField.frame.size.height + /*self.navigationController.navigationBar.frame.size.height +*/ UIApplication.sharedApplication().statusBarFrame.size.height) - (myScreenRect.size.height - keyboardHeight);
+        }
+        
+        frame.origin.y = -needToMove
+        self.view.frame = frame
+        UIView.commitAnimations()
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        //move textfields back down
+        UIView.beginAnimations( "animateView", context: nil)
+        var movementDuration:NSTimeInterval = 0.35
+        var frame : CGRect = self.view.frame
+        frame.origin.y = 0
+        self.view.frame = frame
+        UIView.commitAnimations()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addressLabelField.delegate = self
         cityLabelField.delegate = self
         stateLabelField.delegate=self
         zipLabelField.delegate = self
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
         // Do any additional setup after loading the view.
     }
 
