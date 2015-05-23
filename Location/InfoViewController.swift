@@ -7,12 +7,46 @@
 //
 
 import UIKit
+import Social
+import MobileCoreServices
 
-class InfoViewController: UIViewController {
+class InfoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var selectedLocation:AnyObject = ""
     
     
     @IBOutlet weak var addressLabel: UILabel!
+    
+    @IBOutlet weak var postImage: UIImageView!
+    
+    
+    @IBAction func selectImage(sender: UIBarButtonItem) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType =
+            UIImagePickerControllerSourceType.PhotoLibrary
+        imagePicker.mediaTypes = [kUTTypeImage as NSString]
+        imagePicker.allowsEditing = false
+        self.presentViewController(imagePicker, animated: true,
+            completion: nil)
+    }
+    
+    
+    @IBAction func sendPost(sender: AnyObject) {
+        var activityItems: [AnyObject]?
+        let image = postImage.image
+        let textToPost = addressLabel.text!
+        
+        if (postImage.image != nil) {
+            activityItems = [textToPost, postImage.image!]
+        } else {
+            activityItems = [textToPost]
+        }
+        
+        let activityController = UIActivityViewController(activityItems:
+            activityItems!, applicationActivities: nil)
+        self.presentViewController(activityController, animated: true,
+            completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +62,17 @@ class InfoViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func imagePickerController(picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+            self.dismissViewControllerAnimated(true, completion: nil)
+            let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+            postImage.image = image
+    }
+    
+    func imagePickerControllerDidCancel(picker:
+        UIImagePickerController) {
+            self.dismissViewControllerAnimated(true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation

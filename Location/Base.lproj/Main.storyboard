@@ -89,29 +89,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vR1-pT-CV0">
+                                <rect key="frame" x="9" y="104" width="295" height="297"/>
+                            </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CW1-0z-jzR">
+                                <rect key="frame" x="10" y="498" width="294" height="44"/>
+                                <items>
+                                    <barButtonItem title="Select Image" id="fQL-O8-zZw">
+                                        <connections>
+                                            <action selector="selectImage:" destination="0GA-Ta-ftI" id="Lz3-L7-oEr"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Post Message" id="x5x-tu-yrC">
+                                        <connections>
+                                            <action selector="sendPost:" destination="0GA-Ta-ftI" id="KGV-zT-nwU"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E8D-6z-Meh">
-                                <rect key="frame" x="44" y="67" width="222" height="21"/>
+                                <rect key="frame" x="50" y="43" width="220" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="16"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ADK-ku-ZuC">
-                                <rect key="frame" x="44" y="104" width="134" height="30"/>
-                                <state key="normal" title="Share on Facebook">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="E8D-6z-Meh" firstAttribute="top" secondItem="OZQ-v5-DLR" secondAttribute="bottom" constant="20" id="IfJ-84-zLY"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="E8D-6z-Meh" secondAttribute="trailing" constant="10" id="coX-KH-mIq"/>
-                            <constraint firstItem="E8D-6z-Meh" firstAttribute="leading" secondItem="ZvK-1U-uz2" secondAttribute="leadingMargin" constant="10" id="uTl-Fb-GfE"/>
+                            <constraint firstItem="E8D-6z-Meh" firstAttribute="top" secondItem="OZQ-v5-DLR" secondAttribute="bottom" constant="25" id="6bb-2a-B1a"/>
+                            <constraint firstItem="CW1-0z-jzR" firstAttribute="trailing" secondItem="ZvK-1U-uz2" secondAttribute="trailingMargin" id="Ly4-bc-XIK"/>
+                            <constraint firstItem="vR1-pT-CV0" firstAttribute="leading" secondItem="ZvK-1U-uz2" secondAttribute="leadingMargin" constant="-7" id="N5c-zg-IDO"/>
+                            <constraint firstItem="CW1-0z-jzR" firstAttribute="leading" secondItem="ZvK-1U-uz2" secondAttribute="leadingMargin" constant="-6" id="W2h-dp-3Xd"/>
+                            <constraint firstItem="E8D-6z-Meh" firstAttribute="leading" secondItem="ZvK-1U-uz2" secondAttribute="leadingMargin" constant="5" id="ct8-VT-2y3"/>
+                            <constraint firstItem="vR1-pT-CV0" firstAttribute="trailing" secondItem="ZvK-1U-uz2" secondAttribute="trailingMargin" id="dDE-cT-ecX"/>
+                            <constraint firstItem="vR1-pT-CV0" firstAttribute="top" secondItem="E8D-6z-Meh" secondAttribute="bottom" constant="40" id="jde-FW-E6I"/>
+                            <constraint firstItem="Ed6-fd-jWU" firstAttribute="top" secondItem="CW1-0z-jzR" secondAttribute="bottom" constant="10" id="qDf-u1-fwF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="E8D-6z-Meh" secondAttribute="trailing" constant="5" id="qvl-0b-851"/>
+                            <constraint firstItem="CW1-0z-jzR" firstAttribute="leading" secondItem="ZvK-1U-uz2" secondAttribute="leadingMargin" constant="-13" id="vio-J4-LMm"/>
+                            <constraint firstItem="CW1-0z-jzR" firstAttribute="top" secondItem="vR1-pT-CV0" secondAttribute="bottom" constant="55" id="zFr-aT-NbA"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="XZI-to-WvV"/>
                     <connections>
                         <outlet property="addressLabel" destination="E8D-6z-Meh" id="wrG-lH-9gl"/>
+                        <outlet property="postImage" destination="vR1-pT-CV0" id="ich-Th-dCa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xew-Ne-wDQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
