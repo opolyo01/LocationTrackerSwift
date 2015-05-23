@@ -14,7 +14,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="locationCell" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="locationCell" id="aj0-a2-Fj8">
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="locationCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="locationCell" id="aj0-a2-Fj8">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aj0-a2-Fj8" id="yok-sA-XGb">
@@ -22,23 +22,35 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h2P-Ok-rsd">
-                                            <rect key="frame" x="8" y="14" width="182" height="21"/>
+                                            <rect key="frame" x="8" y="14" width="188" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K0L-5v-lgE">
+                                            <rect key="frame" x="290" y="14" width="22" height="22"/>
+                                            <state key="normal">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="infoClicked:" destination="Xc1-QS-T9d" eventType="touchUpInside" id="Qn3-vi-ZZt"/>
+                                            </connections>
+                                        </button>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Distance" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MoQ-YX-qn4">
-                                            <rect key="frame" x="184" y="14" width="82" height="21"/>
+                                            <rect key="frame" x="193" y="15" width="89" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="h2P-Ok-rsd" firstAttribute="top" secondItem="yok-sA-XGb" secondAttribute="topMargin" constant="6" id="It7-mo-jIQ"/>
                                         <constraint firstItem="h2P-Ok-rsd" firstAttribute="top" secondItem="yok-sA-XGb" secondAttribute="topMargin" constant="6" id="Rcn-R7-UkC"/>
                                         <constraint firstItem="h2P-Ok-rsd" firstAttribute="leading" secondItem="yok-sA-XGb" secondAttribute="leadingMargin" id="TpQ-1C-Erb"/>
                                         <constraint firstItem="MoQ-YX-qn4" firstAttribute="top" secondItem="yok-sA-XGb" secondAttribute="topMargin" constant="6" id="Yq2-Rl-XXW"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="MoQ-YX-qn4" secondAttribute="trailing" constant="13" id="uDe-eV-vl4"/>
+                                        <constraint firstItem="K0L-5v-lgE" firstAttribute="top" secondItem="yok-sA-XGb" secondAttribute="topMargin" constant="6" id="dzs-OA-it5"/>
+                                        <constraint firstItem="K0L-5v-lgE" firstAttribute="leading" secondItem="MoQ-YX-qn4" secondAttribute="trailing" constant="15" id="j6r-OZ-Hf9"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="K0L-5v-lgE" secondAttribute="trailing" constant="5" id="kPa-1b-85a"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -56,10 +68,55 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="43D-go-l3k" kind="custom" id="kMc-nH-Rrs"/>
+                        <segue destination="0GA-Ta-ftI" kind="push" identifier="infoSegue" id="BbW-ca-HRi"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l5K-7i-EM3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="707" y="-2168"/>
+            <point key="canvasLocation" x="644" y="-2154"/>
+        </scene>
+        <!--Info View Controller-->
+        <scene sceneID="qXZ-t2-a6J">
+            <objects>
+                <viewController storyboardIdentifier="infoSegue" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0GA-Ta-ftI" customClass="InfoViewController" customModule="Location" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OZQ-v5-DLR"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ed6-fd-jWU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZvK-1U-uz2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E8D-6z-Meh">
+                                <rect key="frame" x="44" y="67" width="222" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ADK-ku-ZuC">
+                                <rect key="frame" x="44" y="104" width="134" height="30"/>
+                                <state key="normal" title="Share on Facebook">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="E8D-6z-Meh" firstAttribute="top" secondItem="OZQ-v5-DLR" secondAttribute="bottom" constant="20" id="IfJ-84-zLY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="E8D-6z-Meh" secondAttribute="trailing" constant="10" id="coX-KH-mIq"/>
+                            <constraint firstItem="E8D-6z-Meh" firstAttribute="leading" secondItem="ZvK-1U-uz2" secondAttribute="leadingMargin" constant="10" id="uTl-Fb-GfE"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="XZI-to-WvV"/>
+                    <connections>
+                        <outlet property="addressLabel" destination="E8D-6z-Meh" id="wrG-lH-9gl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xew-Ne-wDQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="579" y="-1459"/>
         </scene>
         <!--Add Adress View Controller-->
         <scene sceneID="KqY-ob-AfP">
@@ -243,4 +300,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="kMc-nH-Rrs"/>
+    </inferredMetricsTieBreakers>
 </document>

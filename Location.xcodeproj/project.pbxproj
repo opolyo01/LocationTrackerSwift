@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34D141281B103719004A6637 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D141271B103719004A6637 /* InfoViewController.swift */; };
 		34DDB2D21B0AEBFF0001FE45 /* AddAdressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DDB2D11B0AEBFF0001FE45 /* AddAdressViewController.swift */; };
 		34DDB2D61B0AF38E0001FE45 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DDB2D51B0AF38E0001FE45 /* Location.swift */; };
 		34DDB2D81B0D005A0001FE45 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DDB2D71B0D005A0001FE45 /* Settings.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		34D141271B103719004A6637 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		34DDB2D11B0AEBFF0001FE45 /* AddAdressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAdressViewController.swift; sourceTree = "<group>"; };
 		34DDB2D51B0AF38E0001FE45 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		34DDB2D71B0D005A0001FE45 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				34DDB2D11B0AEBFF0001FE45 /* AddAdressViewController.swift */,
 				34E9F5EC1B06B48B006A2A29 /* LocationsTableController.swift */,
 				34DDB2DB1B0D04E70001FE45 /* SettingsViewController.swift */,
+				34D141271B103719004A6637 /* InfoViewController.swift */,
 			);
 			name = viewControllers;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 				34E9F5ED1B06B48B006A2A29 /* LocationsTableController.swift in Sources */,
 				34E9F5EB1B06B48B006A2A29 /* Location.xcdatamodeld in Sources */,
 				34DDB2D61B0AF38E0001FE45 /* Location.swift in Sources */,
+				34D141281B103719004A6637 /* InfoViewController.swift in Sources */,
 				34DDB2DA1B0D010B0001FE45 /* LocationTabBarControllerViewController.swift in Sources */,
 				34DDB2D21B0AEBFF0001FE45 /* AddAdressViewController.swift in Sources */,
 				34E9F5E81B06B48B006A2A29 /* AppDelegate.swift in Sources */,

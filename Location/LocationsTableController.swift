@@ -19,7 +19,30 @@ class LocationsTableViewController: UITableViewController, UITableViewDelegate, 
     var coords: CLLocationCoordinate2D?
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     let locationManager = CLLocationManager()
+    var selectedLocation:AnyObject = []
     
+    
+    @IBAction func infoClicked(sender: UIButton) {
+        var position: CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView)
+        if let indexPath = self.tableView.indexPathForRowAtPoint(position)
+        {
+            let section = indexPath.section
+            let row = indexPath.row
+            let location: AnyObject = locations[row]
+            var address = location.valueForKey("address") as! String
+            println(address)
+            self.selectedLocation = location
+            
+            performSegueWithIdentifier("infoSegue", sender: self)
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "infoSegue" {
+            let vc = segue.destinationViewController as! InfoViewController
+            vc.selectedLocation = self.selectedLocation
+        }
+    }
     
     func reloadTable(notification: NSNotification){
         //load data here
