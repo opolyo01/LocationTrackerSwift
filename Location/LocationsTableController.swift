@@ -12,7 +12,7 @@ import CoreLocation
 import MapKit
 import AddressBook
 
-class LocationsTableViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
+class LocationsTableViewController: UITableViewController, CLLocationManagerDelegate {
     var settings = Settings()
     var locations = []
     var currentLocation:CLLocation = CLLocation(latitude: 0, longitude: 0)
@@ -23,14 +23,14 @@ class LocationsTableViewController: UITableViewController, UITableViewDelegate, 
     
     
     @IBAction func infoClicked(sender: UIButton) {
-        var position: CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView)
+        let position: CGPoint = sender.convertPoint(CGPointZero, toView: self.tableView)
         if let indexPath = self.tableView.indexPathForRowAtPoint(position)
         {
             let section = indexPath.section
             let row = indexPath.row
             let location: AnyObject = locations[row]
-            var address = location.valueForKey("address") as! String
-            println(address)
+            let address = location.valueForKey("address") as! String
+            print(address, appendNewline: false)
             self.selectedLocation = location
             
             performSegueWithIdentifier("infoSegue", sender: self)
@@ -58,14 +58,14 @@ class LocationsTableViewController: UITableViewController, UITableViewDelegate, 
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         settings = (tabBarController as! LocationTabBarControllerViewController).settings
-        println(settings.updatesOn)
+        print(settings.updatesOn, appendNewline: false)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTable:", name:"load", object: nil)
         locations = Location.fetchLocations(managedObjectContext!)
-        println(settings.updatesOn)
+        print(settings.updatesOn, appendNewline: false)
         if(settings.updatesOn){
             locationManager.startUpdatingLocation()
         }
@@ -76,8 +76,8 @@ class LocationsTableViewController: UITableViewController, UITableViewDelegate, 
         locationManager.stopUpdatingLocation()
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        currentLocation = manager.location
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        currentLocation = manager.location!
         if(!self.tableView.editing){
             self.tableView.reloadData()
         }
@@ -110,13 +110,13 @@ class LocationsTableViewController: UITableViewController, UITableViewDelegate, 
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath) 
         let location: AnyObject = locations[indexPath.row]
         let lat = location.valueForKey("lat") as? Double
         let lng = location.valueForKey("lng") as? Double
         let clLocation = CLLocation(latitude: lat!, longitude: lng!)
         let metersInMile = 1609.344
-        var address = location.valueForKey("address") as? String
+        let address = location.valueForKey("address") as? String
         var distance:Double = clLocation.distanceFromLocation(currentLocation)
         distance = distance/metersInMile
         distance = self.roundToPlaces(distance, places: 2)
@@ -156,14 +156,13 @@ class LocationsTableViewController: UITableViewController, UITableViewDelegate, 
     }
     
     func showMap(address:String, city:String, state:String, zipCode:String){
-        let addressDict =
-        [kABPersonAddressStreetKey as NSString: address,
-            kABPersonAddressCityKey: city,
-            kABPersonAddressStateKey: state,
-            kABPersonAddressZIPKey: zipCode]
+        let addressDict:[String : AnyObject]? =
+        [kABPersonAddressStreetKey as String: address,
+            kABPersonAddressCityKey as String: city,
+            kABPersonAddressStateKey as String: state,
+            kABPersonAddressZIPKey as String: zipCode]
         
-        let place = MKPlacemark(coordinate: coords!,
-            addressDictionary: addressDict)
+        let place = MKPlacemark(coordinate: coords!, addressDictionary: addressDict)
         
         let mapItem = MKMapItem(placemark: place)
         

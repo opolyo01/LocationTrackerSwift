@@ -22,17 +22,17 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
     
     
     @IBAction func shareLocations(sender: AnyObject) {
-        var emailTitle = "My Favorite Locations"
+        let emailTitle = "My Favorite Locations"
         var messageBody = ""
         //var toRecipents = ["friend@stackoverflow.com"]
-        var mc: MFMailComposeViewController = MFMailComposeViewController()
+        let mc: MFMailComposeViewController = MFMailComposeViewController()
         mc.mailComposeDelegate = self
         mc.setSubject(emailTitle)
         
         //mc.setToRecipients(toRecipents)
         
         let locations = Location.fetchLocations(managedObjectContext!)
-        println("Total count of locations \(locations.count)")
+        print("Total count of locations \(locations.count)", appendNewline: false)
         for location in locations{
             let address = location.valueForKey("address") as! String
             let city = location.valueForKey("city") as! String
@@ -46,16 +46,16 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
         self.presentViewController(mc, animated: true, completion: nil)
     }
     
-    func mailComposeController(controller:MFMailComposeViewController, didFinishWithResult result:MFMailComposeResult, error:NSError) {
-        switch result.value {
-        case MFMailComposeResultCancelled.value:
-            println("Mail cancelled")
-        case MFMailComposeResultSaved.value:
-            println("Mail saved")
-        case MFMailComposeResultSent.value:
-            println("Mail sent")
-        case MFMailComposeResultFailed.value:
-            println("Mail sent failure: %@", [error.localizedDescription])
+    func mailComposeController(controller:MFMailComposeViewController, didFinishWithResult result:MFMailComposeResult, error:NSError?) {
+        switch result.rawValue {
+        case MFMailComposeResultCancelled.rawValue:
+            print("Mail cancelled", appendNewline: false)
+        case MFMailComposeResultSaved.rawValue:
+            print("Mail saved", appendNewline: false)
+        case MFMailComposeResultSent.rawValue:
+            print("Mail sent", appendNewline: false)
+        case MFMailComposeResultFailed.rawValue:
+            print("Mail sent failure: %@", [error!.localizedDescription], appendNewline: false)
         default:
             break
         }

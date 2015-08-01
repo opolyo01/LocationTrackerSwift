@@ -24,7 +24,7 @@ class InfoViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         imagePicker.delegate = self
         imagePicker.sourceType =
             UIImagePickerControllerSourceType.PhotoLibrary
-        imagePicker.mediaTypes = [kUTTypeImage as NSString]
+        //imagePicker.mediaTypes = [kUTTypeImage as NSString]
         imagePicker.allowsEditing = false
         self.presentViewController(imagePicker, animated: true,
             completion: nil)
@@ -33,7 +33,6 @@ class InfoViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     @IBAction func sendPost(sender: AnyObject) {
         var activityItems: [AnyObject]?
-        let image = postImage.image
         let textToPost = addressLabel.text!
         
         if (postImage.image != nil) {
@@ -63,7 +62,7 @@ class InfoViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     func imagePickerController(picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        didFinishPickingMediaWithInfo info: [String : AnyObject]) {
             self.dismissViewControllerAnimated(true, completion: nil)
             let image = info[UIImagePickerControllerOriginalImage] as! UIImage
             postImage.image = image

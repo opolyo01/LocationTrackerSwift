@@ -36,7 +36,7 @@ class Location: NSManagedObject {
         newItem.lng = lng
         Location.save(moc)
             
-        println("Location \(lat) \(lng)")
+        print("Location \(lat) \(lng)", appendNewline: false)
         
         return newItem
     }
@@ -44,27 +44,30 @@ class Location: NSManagedObject {
     class func fetchLocations(moc: NSManagedObjectContext) -> [NSManagedObject]{
         let fetchRequest = NSFetchRequest(entityName:"Location")
         
-        //3
-        var error: NSError?
         
-        let fetchedResults =
-        moc.executeFetchRequest(fetchRequest,
-            error: &error) as? [NSManagedObject]
-        
-        if let results = fetchedResults {
-            return results
-        } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
-            return []
+        do {
+            let fetchedResults = try moc.executeFetchRequest(fetchRequest) as? [NSManagedObject]
+            if let results = fetchedResults {
+                return results
+            } else {
+                print("Could not fetch", appendNewline: false)
+                return []
+            }
+        } catch {
+            print(error)
         }
-
+        
+        return []
     }
     
     class func save(moc: NSManagedObjectContext) {
-        var error : NSError?
-        if(moc.save(&error) ) {
-            println("Error \(error?.localizedDescription)")
+        do{
+            try moc.save()
         }
+        catch {
+            print(error)
+        }
+        
     }
     
 }

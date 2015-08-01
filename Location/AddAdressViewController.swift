@@ -36,39 +36,43 @@ class AddAdressViewController: UIViewController, CLLocationManagerDelegate, UITe
         let addressString = "\(address) \(city) \(state) \(zipCode)"
         let geoCoder = CLGeocoder()
         
-        geoCoder.geocodeAddressString(addressString, completionHandler:
-            {(placemarks: [AnyObject]!, error: NSError!) in
+        geoCoder.geocodeAddressString(addressString, completionHandler: {(placemarks: [CLPlacemark]?, error: NSError?) -> Void in
                 
                 if error != nil {
-                    println("Geocode failed with error: \(error.localizedDescription)")
-                } else if placemarks.count > 0 {
-                    let placemark = placemarks[0] as! CLPlacemark
-                    let location = placemark.location
-                    let coords = location.coordinate
-                    let lat = coords.latitude
-                    let lng = coords.longitude
+                    print("Geocode failed with error: \(error!.localizedDescription)")
+                } else if placemarks!.count > 0 {
+                    if let validPlacemark = placemarks?[0]{
+                        let location = validPlacemark.location
+                        let coords = location!.coordinate
+                        let lat = coords.latitude
+                        let lng = coords.longitude
+                        
+                        Location.addLocation(self.managedObjectContext!, address: address!, city: city!,
+                            state: state!, zip: zipCode!, lat: lat, lng: lng)
+                        self.navigationController?.popViewControllerAnimated(true)
+                        NSNotificationCenter.defaultCenter().postNotificationName("load", object: nil)
+                    }
                     
-                    Location.addLocation(self.managedObjectContext!, address: address, city: city,
-                        state: state, zip: zipCode, lat: lat, lng: lng)
-                    self.navigationController?.popViewControllerAnimated(true)
-                    NSNotificationCenter.defaultCenter().postNotificationName("load", object: nil)
                 }
         })
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: {(placemarks, error)->Void in
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: {(placemarks, error)->Void in
             
             if (error != nil) {
-                println("Reverse geocoder failed with error" + error.localizedDescription)
+                print("Reverse geocoder failed with error" + error!.localizedDescription)
                 return
             }
             
-            if placemarks.count > 0 {
-                let pm = placemarks[0] as! CLPlacemark
-                self.displayLocationInfo(pm)
+            if placemarks!.count > 0 {
+                if let validPlacemark = placemarks?[0]{
+                    self.displayLocationInfo(validPlacemark)
+                }
+                //let pm = placemarks as! [CLPlacemark]
+                
             } else {
-                println("Problem with the data received from geocoder")
+                print("Problem with the data received from geocoder")
             }
         })
     }
@@ -80,11 +84,11 @@ class AddAdressViewController: UIViewController, CLLocationManagerDelegate, UITe
             let city = (containsPlacemark.locality != nil) ? containsPlacemark.locality : ""
             let postalCode = (containsPlacemark.postalCode != nil) ? containsPlacemark.postalCode : ""
             let state = (containsPlacemark.administrativeArea != nil) ? containsPlacemark.administrativeArea : ""
-            let country = (containsPlacemark.country != nil) ? containsPlacemark.country : ""
+            _ = (containsPlacemark.country != nil) ? containsPlacemark.country : ""
             let streetNumber = (containsPlacemark.subThoroughfare != nil) ? containsPlacemark.subThoroughfare : ""
             let street = (containsPlacemark.thoroughfare != nil) ? containsPlacemark.thoroughfare : ""
             
-            addressLabelField.text = streetNumber + " " + street
+            addressLabelField.text = streetNumber! + " " + street!
             cityLabelField.text = city
             stateLabelField.text = state
             zipLabelField.text = postalCode
@@ -92,8 +96,8 @@ class AddAdressViewController: UIViewController, CLLocationManagerDelegate, UITe
         
     }
     
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        println("Error while updating location " + error.localizedDescription)
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("Error while updating location " + error.localizedDescription)
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -144,8 +148,8 @@ class AddAdressViewController: UIViewController, CLLocationManagerDelegate, UITe
     }
     
     
-    override func supportedInterfaceOrientations() -> Int {
-        return Int(UIInterfaceOrientationMask.Portrait.rawValue)
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
     }
     
     override func shouldAutorotate() -> Bool {
